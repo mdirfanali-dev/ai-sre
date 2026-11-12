@@ -28,6 +28,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.20 (Section B) | C | (this session) | See "Decisions B" below | None new | 10.2 |
 | Q10.21 (Section B) | C | (this session) | See "Decisions B" below | None new | 10.2 |
 | Q10.22 (Section B) | C | (this session) | See "Decisions B" below | TBD: which agent skills need which capability waits on A9 (owner: A9 author) | 10.1, 10.2 |
+| Q10.23 (Section B) | C | (this session) | See "Decisions B" below | None new | 10.2 |
 
 ### Decisions A
 
@@ -56,6 +57,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 - **Q10.20 Truncated JSON:** Truncated JSON is an incomplete result and is not repaired by guessing. Check the stop reason first: if it is length_limit, retry with a larger output limit or a smaller task. Otherwise retry within the retry limit. After the limits, fail with a clear error. The raw output is logged.
 - **Q10.21 Schema violations:** Validation runs in order: normalize the provider response, parse the JSON, then validate against the expected schema (required fields, types, allowed values). Invalid output is never passed to tools or to the next step. On failure, retry a bounded number of times, optionally sending the validation error back to the model. After the limit, fail with an error and log the raw output and the error.
 - **Q10.22 Capability incompatibility:** The gateway keeps a capability matrix per model (structured output, tool calling, and so on). Before sending a request it checks the capabilities the task requires. If a model lacks one, the gateway routes to a model that has it. Where explicitly allowed for that skill, it emulates the capability, for example by asking for JSON in the prompt and applying the Q10.21 validation. Otherwise it rejects the combination with a clear error. Emulation is explicit configuration, never silent. TBD: which skills need which capability comes from A9.
+- **Q10.23 Reproducibility:** Preserve for every result and investigation: internal model name, provider, provider model ID, the exact pinned version or checkpoint (never an alias such as "latest"), the model identifier the provider returned in its response, request parameters (temperature, max tokens and so on), prompt version, skill version, tool definition version, and request date and time. If a provider retires a version, exact re-running may be impossible. Then the stored inputs and outputs are the record.
 
 ### Open unknowns / assumptions A (all provisional)
 
