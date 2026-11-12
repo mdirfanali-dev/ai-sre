@@ -21,6 +21,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.13 (Section B) | C | (this session) | See "Decisions B" below | TBD: task types and per-task values wait on A9 (owner: A9 author) | 10.2 |
 | Q10.14 (Section B) | C | (this session) | See "Decisions B" below | None new | 10.2 |
 | Q10.15 (Section B) | C | (this session) | See "Decisions B" below | None new | 10.2 |
+| Q10.16 (Section B) | C | (this session) | See "Decisions B" below | TBD: tool list and schemas wait on A9 (owner: A9 author) | 10.2 |
 
 ### Decisions A
 
@@ -42,6 +43,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 - **Q10.13 ModelRequest fields (mechanism):** request id; incident id and task type; internal model name; instructions and messages (context); available tools (name, description, schema); parameters (max output tokens, temperature, stop sequences); required output format or schema; capability needs (tool calling, structured output); timeout and token budget; prompt version. TBD: the exact task types and per-task values come from A9.
 - **Q10.14 ModelResult fields:** request id; content blocks (see Q10.15); stop reason; token usage (input, output, and cached tokens if reported); provenance (provider, provider model ID, internal name, pinned version); start time, end time and latency; retry count; error information if any; reference to the raw response. All of it is written to logs so any issue can be traced back.
 - **Q10.15 Representing mixed content:** A response is an ordered list of typed blocks: text, tool proposal, and structured content (parsed JSON plus whether it matched the schema). Other types the provider returns, such as a refusal, also get their own type. Order is preserved. The application reads blocks by type and never depends on a provider's own layout.
+- **Q10.16 Representing tool proposals (mechanism):** A tool call from the model is a proposal, not an action. A ToolProposal holds: proposal id, request id, tool name, arguments, status (proposed, valid, rejected, executed) and the validation result with a reason. A validator checks that the tool exists and is allowed for this task, that arguments match the tool's schema, and that permissions and limits are respected. Only valid proposals reach the executor. Rejected ones are logged and can be returned to the model. TBD: the tool list and schemas come from A9.
 
 ### Open unknowns / assumptions A (all provisional)
 
