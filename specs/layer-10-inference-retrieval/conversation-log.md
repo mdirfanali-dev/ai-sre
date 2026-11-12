@@ -32,6 +32,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.24 (Section B) | C | (this session) | See "Decisions B" below | TBD: the constraints used to score providers wait on A2 (owner: A2 team) | 10.1 |
 | Q10.25 (Section C) | C | (this session) | See "Decisions C" below | See 10A-16 | 10.8 |
 | Q10.26 (Section C) | C | (this session) | See "Decisions C" below | See 10A-16 | 10.8 |
+| Q10.27 (Section C) | C | (this session) | See "Decisions C" below | TBD: cost limits wait on A2 (see 10A-17) | 10.5 |
 
 ### Decisions A
 
@@ -67,6 +68,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 
 - **Q10.25 Unit of consumption:** The platform measures consumption in tokens, always as two separate numbers: input tokens and output tokens. Each model and provider has its own tokenizer, so the same text gives different counts. Billing follows the provider's own usage report. Our estimates use the tokenizer or token-counting method of the specific model, not a tokenizer of our own design.
 - **Q10.26 Distinguishing usage:** Every result records input tokens, output tokens, and cached tokens if the provider reports them, never one combined total, because they are priced differently. Cost per request is input tokens times the input price plus output tokens times the output price, taken from a price table per model.
+- **Q10.27 Estimating and controlling spend (mechanism):** Every call has a maximum output limit. Before a call, the worst-case cost is estimated from the counted input and that limit. Each incident has a total budget that covers all its calls, and calls stop when it is used up. A price table per model is kept. Test runs on each candidate model, including expensive ones, give the real token counts per task type, and from these an expected cost range per task type is set. Actual and estimated cost are recorded for each call, and an alert is raised when a call or incident goes outside its range. TBD: the cost limits come from A2.
 
 ### Open unknowns / assumptions A (all provisional)
 
@@ -88,6 +90,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | 10A-14 | Q10.5 | Weights trained on Tinker can be downloaded and the base model's license allows self-hosting them | Assumption | Irfan | Check Tinker docs and the base model license before the experiment |
 | 10A-15 | Q10.5 | Incident data is allowed to be sent to Tinker for training | Unknown | Team | A2 data and security constraints |
 | 10A-16 | Q10.25, Q10.26 | Exact price per input, output and cached token for each candidate model, and how each provider counts tokens | Unknown | Irfan | Provider price pages and docs at selection time (Q10.24) |
+| 10A-17 | Q10.27, Q10.28 | The per-incident and overall cost limits | Unknown | Team | A2 (Q2.16 and Q2.18) |
 
 ### Where Claude and ChatGPT disagreed
 _(none yet — only Claude used so far; ChatGPT comparison and team agreement are still open)_
