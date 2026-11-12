@@ -19,6 +19,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.11 (Section B) | C | (this session) | See "Decisions B" below | None new | 10.2 |
 | Q10.12 (Section B) | C | (this session) | See "Decisions B" below | None new | 10.2 |
 | Q10.13 (Section B) | C | (this session) | See "Decisions B" below | TBD: task types and per-task values wait on A9 (owner: A9 author) | 10.2 |
+| Q10.14 (Section B) | C | (this session) | See "Decisions B" below | None new | 10.2 |
 
 ### Decisions A
 
@@ -38,6 +39,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 - **Q10.11 Isolating provider-specific communication:** All provider-specific code (SDK calls, authentication, request and response formats, error types, provider model IDs) stays inside the adapter. The agent never imports provider code. A configuration maps our internal model name to a provider and its model ID. Switching an existing provider is a configuration change. A new provider needs one new adapter, and the agent stays unchanged. Contract tests check that every adapter behaves the same way.
 - **Q10.12 Normalizing response formats:** Every adapter converts provider output into the same internal structure. A tool call becomes: call id, tool name, and arguments as a parsed object (the adapter parses JSON text). Malformed output is flagged in the adapter and not passed on silently. The raw provider response (or a reference to it) is kept for debugging.
 - **Q10.13 ModelRequest fields (mechanism):** request id; incident id and task type; internal model name; instructions and messages (context); available tools (name, description, schema); parameters (max output tokens, temperature, stop sequences); required output format or schema; capability needs (tool calling, structured output); timeout and token budget; prompt version. TBD: the exact task types and per-task values come from A9.
+- **Q10.14 ModelResult fields:** request id; content blocks (see Q10.15); stop reason; token usage (input, output, and cached tokens if reported); provenance (provider, provider model ID, internal name, pinned version); start time, end time and latency; retry count; error information if any; reference to the raw response. All of it is written to logs so any issue can be traced back.
 
 ### Open unknowns / assumptions A (all provisional)
 
