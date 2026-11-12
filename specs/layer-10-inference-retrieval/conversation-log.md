@@ -26,6 +26,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.18 (Section B) | C | (this session) | See "Decisions B" below | None new | 10.2 |
 | Q10.19 (Section B) | C | (this session) | See "Decisions B" below | None new | 10.2 |
 | Q10.20 (Section B) | C | (this session) | See "Decisions B" below | None new | 10.2 |
+| Q10.21 (Section B) | C | (this session) | See "Decisions B" below | None new | 10.2 |
 
 ### Decisions A
 
@@ -52,6 +53,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 - **Q10.18 Token limit vs completion:** Each adapter maps the provider's stop reasons to a small set of our own: completed, length_limit, tool_request, refused, error. Only "completed" is a finished answer. "length_limit" marks the result incomplete and it is not used as final. The caller may retry with a larger output limit or a shorter input, within budget.
 - **Q10.19 Disconnected stream:** A streamed response is complete only when it ends with the provider's explicit completion signal and a stop reason. A dropped connection, or a stream that ends without that signal, gives the status "interrupted". Partial text is kept for logs, flagged, and not used as final. Tokens may already be billed, so usage is still recorded. Retry follows the retry policy.
 - **Q10.20 Truncated JSON:** Truncated JSON is an incomplete result and is not repaired by guessing. Check the stop reason first: if it is length_limit, retry with a larger output limit or a smaller task. Otherwise retry within the retry limit. After the limits, fail with a clear error. The raw output is logged.
+- **Q10.21 Schema violations:** Validation runs in order: normalize the provider response, parse the JSON, then validate against the expected schema (required fields, types, allowed values). Invalid output is never passed to tools or to the next step. On failure, retry a bounded number of times, optionally sending the validation error back to the model. After the limit, fail with an error and log the raw output and the error.
 
 ### Open unknowns / assumptions A (all provisional)
 
