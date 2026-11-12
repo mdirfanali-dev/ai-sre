@@ -34,6 +34,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.26 (Section C) | C | (this session) | See "Decisions C" below | See 10A-16 | 10.8 |
 | Q10.27 (Section C) | C | (this session) | See "Decisions C" below | TBD: cost limits wait on A2 (see 10A-17) | 10.5 |
 | Q10.28 (Section C) | C | (this session) | See "Decisions C" below | TBD: per-incident limit waits on A2; see 10A-17, 10A-19 | 10.5 |
+| Q10.29 (Section C) | C | (this session) | See "Decisions C" below | None new | 10.5 |
 
 ### Decisions A
 
@@ -71,6 +72,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 - **Q10.26 Distinguishing usage:** Every result records input tokens, output tokens, and cached tokens if the provider reports them, never one combined total, because they are priced differently. Cost per request is input tokens times the input price plus output tokens times the output price, taken from a price table per model.
 - **Q10.27 Estimating and controlling spend (mechanism):** Every call has a maximum output limit. Before a call, the worst-case cost is estimated from the counted input and that limit. Each incident has a total budget that covers all its calls, and calls stop when it is used up. A price table per model is kept. Test runs on each candidate model, including expensive ones, give the real token counts per task type, and from these an expected cost range per task type is set. Actual and estimated cost are recorded for each call, and an alert is raised when a call or incident goes outside its range. TBD: the cost limits come from A2.
 - **Q10.28 Per-incident budget (mechanism):** Each incident has one total cost cap (value from A2, Q2.16 and Q2.18). A budget ledger per incident holds the limit, the amount spent, and the amount reserved. Every call draws from it through a reservation (Q10.29). When the remaining budget cannot cover the next call, the call is refused, and the investigation ends with the best result so far or escalates to a person. A per-call output limit is a separate, smaller guard. A separate emergency reserve pool exists outside the incident budgets and is used only in emergencies. Which cases qualify, and who approves, is decided together with the stakeholders. TBD: all amounts come from A2.
+- **Q10.29 Cost reservations:** Before a call starts, estimate its worst-case cost (counted input tokens plus the maximum output tokens, priced) and reserve that amount from the incident budget in one atomic step. If the budget cannot cover it, the call waits or is refused and does not start. When the call finishes, replace the reservation with the real usage and release the unused remainder. Because the reservation happens before the call and cannot be taken twice, several parallel calls cannot together exceed the budget.
 
 ### Open unknowns / assumptions A (all provisional)
 
