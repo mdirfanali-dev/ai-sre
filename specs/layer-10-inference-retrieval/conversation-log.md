@@ -22,6 +22,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.14 (Section B) | C | (this session) | See "Decisions B" below | None new | 10.2 |
 | Q10.15 (Section B) | C | (this session) | See "Decisions B" below | None new | 10.2 |
 | Q10.16 (Section B) | C | (this session) | See "Decisions B" below | TBD: tool list and schemas wait on A9 (owner: A9 author) | 10.2 |
+| Q10.17 (Section B) | C | (this session) | See "Decisions B" below | None new | 10.2 |
 
 ### Decisions A
 
@@ -44,6 +45,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 - **Q10.14 ModelResult fields:** request id; content blocks (see Q10.15); stop reason; token usage (input, output, and cached tokens if reported); provenance (provider, provider model ID, internal name, pinned version); start time, end time and latency; retry count; error information if any; reference to the raw response. All of it is written to logs so any issue can be traced back.
 - **Q10.15 Representing mixed content:** A response is an ordered list of typed blocks: text, tool proposal, and structured content (parsed JSON plus whether it matched the schema). Other types the provider returns, such as a refusal, also get their own type. Order is preserved. The application reads blocks by type and never depends on a provider's own layout.
 - **Q10.16 Representing tool proposals (mechanism):** A tool call from the model is a proposal, not an action. A ToolProposal holds: proposal id, request id, tool name, arguments, status (proposed, valid, rejected, executed) and the validation result with a reason. A validator checks that the tool exists and is allowed for this task, that arguments match the tool's schema, and that permissions and limits are respected. Only valid proposals reach the executor. Rejected ones are logged and can be returned to the model. TBD: the tool list and schemas come from A9.
+- **Q10.17 Provider refusal:** A refusal is a normal outcome, not a transport error. The adapter maps the provider's refusal signal to our own result status "refused" and carries the provider's message. The gateway does not retry the same request blindly and does not silently switch providers. The workflow or agent decides what happens next, for example rewording the request or escalating to a person. Every refusal is logged with provenance.
 
 ### Open unknowns / assumptions A (all provisional)
 
