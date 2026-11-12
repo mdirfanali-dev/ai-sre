@@ -16,13 +16,13 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 
 ### Open unknowns / assumptions A (all provisional)
 
-| # | Item | Type | Owner | Validate when |
-|---|---|---|---|---|
-| 10A-1 | Every model the platform uses is a decoder-only transformer LLM | Assumption | Irfan | A2 fixes the allowed models |
-| 10A-2 | V1 uses ready-made models. The platform does not train a model | Assumption | Irfan | A2 scope and constraints |
-| 10A-3 | Which exact model and provider the platform will use | Unknown | Team | A2 and Q10.2 onward |
-| 10A-4 | Providers let us pin an exact model version, not only a moving alias | Assumption | Irfan | Q10.24 and A2 provider list |
-| 10A-5 | The same model has different ID formats on different providers | Unknown | Irfan | Adapter design, Q10.3 and Q10.4 |
+| # | Question | Item | Type | Owner | Validate when |
+|---|---|---|---|---|---|
+| 10A-1 | Q10.1 | Every model the platform uses is a decoder-only transformer LLM | Assumption | Irfan | A2 fixes the allowed models |
+| 10A-2 | Q10.1 | V1 uses ready-made models. The platform does not train a model | Assumption | Irfan | A2 scope and constraints |
+| 10A-3 | Q10.1, Q10.2 | Which exact model and provider the platform will use | Unknown | Team | A2 and Q10.2 onward |
+| 10A-4 | Q10.2 | Providers let us pin an exact model version, not only a moving alias | Assumption | Irfan | Q10.24 and A2 provider list |
+| 10A-5 | Q10.2 | The same model has different ID formats on different providers | Unknown | Irfan | Adapter design, Q10.3 and Q10.4 |
 
 ### Where Claude and ChatGPT disagreed
 _(none yet — only Claude used so far; ChatGPT comparison and team agreement are still open)_
