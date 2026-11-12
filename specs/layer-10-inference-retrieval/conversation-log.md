@@ -33,6 +33,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.25 (Section C) | C | (this session) | See "Decisions C" below | See 10A-16 | 10.8 |
 | Q10.26 (Section C) | C | (this session) | See "Decisions C" below | See 10A-16 | 10.8 |
 | Q10.27 (Section C) | C | (this session) | See "Decisions C" below | TBD: cost limits wait on A2 (see 10A-17) | 10.5 |
+| Q10.28 (Section C) | C | (this session) | See "Decisions C" below | TBD: per-incident limit waits on A2; see 10A-17, 10A-19 | 10.5 |
 
 ### Decisions A
 
@@ -69,6 +70,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 - **Q10.25 Unit of consumption:** The platform measures consumption in tokens, always as two separate numbers: input tokens and output tokens. Each model and provider has its own tokenizer, so the same text gives different counts. Billing follows the provider's own usage report. Our estimates use the tokenizer or token-counting method of the specific model, not a tokenizer of our own design.
 - **Q10.26 Distinguishing usage:** Every result records input tokens, output tokens, and cached tokens if the provider reports them, never one combined total, because they are priced differently. Cost per request is input tokens times the input price plus output tokens times the output price, taken from a price table per model.
 - **Q10.27 Estimating and controlling spend (mechanism):** Every call has a maximum output limit. Before a call, the worst-case cost is estimated from the counted input and that limit. Each incident has a total budget that covers all its calls, and calls stop when it is used up. A price table per model is kept. Test runs on each candidate model, including expensive ones, give the real token counts per task type, and from these an expected cost range per task type is set. Actual and estimated cost are recorded for each call, and an alert is raised when a call or incident goes outside its range. TBD: the cost limits come from A2.
+- **Q10.28 Per-incident budget (mechanism):** Each incident has one total cost cap (value from A2, Q2.16 and Q2.18). A budget ledger per incident holds the limit, the amount spent, and the amount reserved. Every call draws from it through a reservation (Q10.29). When the remaining budget cannot cover the next call, the call is refused, and the investigation ends with the best result so far or escalates to a person. A per-call output limit is a separate, smaller guard. A separate emergency reserve pool exists outside the incident budgets and is used only in emergencies. Which cases qualify, and who approves, is decided together with the stakeholders. TBD: all amounts come from A2.
 
 ### Open unknowns / assumptions A (all provisional)
 
