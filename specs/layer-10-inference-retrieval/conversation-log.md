@@ -31,6 +31,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.23 (Section B) | C | (this session) | See "Decisions B" below | None new | 10.2 |
 | Q10.24 (Section B) | C | (this session) | See "Decisions B" below | TBD: the constraints used to score providers wait on A2 (owner: A2 team) | 10.1 |
 | Q10.25 (Section C) | C | (this session) | See "Decisions C" below | See 10A-16 | 10.8 |
+| Q10.26 (Section C) | C | (this session) | See "Decisions C" below | See 10A-16 | 10.8 |
 
 ### Decisions A
 
@@ -65,6 +66,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 ### Decisions C
 
 - **Q10.25 Unit of consumption:** The platform measures consumption in tokens, always as two separate numbers: input tokens and output tokens. Each model and provider has its own tokenizer, so the same text gives different counts. Billing follows the provider's own usage report. Our estimates use the tokenizer or token-counting method of the specific model, not a tokenizer of our own design.
+- **Q10.26 Distinguishing usage:** Every result records input tokens, output tokens, and cached tokens if the provider reports them, never one combined total, because they are priced differently. Cost per request is input tokens times the input price plus output tokens times the output price, taken from a price table per model.
 
 ### Open unknowns / assumptions A (all provisional)
 
