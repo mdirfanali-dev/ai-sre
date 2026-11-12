@@ -30,6 +30,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.22 (Section B) | C | (this session) | See "Decisions B" below | TBD: which agent skills need which capability waits on A9 (owner: A9 author) | 10.1, 10.2 |
 | Q10.23 (Section B) | C | (this session) | See "Decisions B" below | None new | 10.2 |
 | Q10.24 (Section B) | C | (this session) | See "Decisions B" below | TBD: the constraints used to score providers wait on A2 (owner: A2 team) | 10.1 |
+| Q10.25 (Section C) | C | (this session) | See "Decisions C" below | See 10A-16 | 10.8 |
 
 ### Decisions A
 
@@ -61,6 +62,10 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 - **Q10.23 Reproducibility:** Preserve for every result and investigation: internal model name, provider, provider model ID, the exact pinned version or checkpoint (never an alias such as "latest"), the model identifier the provider returned in its response, request parameters (temperature, max tokens and so on), prompt version, skill version, tool definition version, and request date and time. If a provider retires a version, exact re-running may be impossible. Then the stored inputs and outputs are the record.
 - **Q10.24 Provider comparison:** Compare providers on: model quality for our tasks (from evaluation results), capabilities (tool calling, structured output, streaming, context window, maximum output, caching), limits (rate limits, concurrency), price per input and output token, latency, reliability and SLA, version pinning and deprecation policy, data handling (retention, training on our data, region), and security and compliance. Results go into the provider capability matrix. TBD: the constraints that weight these dimensions come from A2.
 
+### Decisions C
+
+- **Q10.25 Unit of consumption:** The platform measures consumption in tokens, always as two separate numbers: input tokens and output tokens. Each model and provider has its own tokenizer, so the same text gives different counts. Billing follows the provider's own usage report. Our estimates use the tokenizer or token-counting method of the specific model, not a tokenizer of our own design.
+
 ### Open unknowns / assumptions A (all provisional)
 
 | # | Question | Item | Type | Owner | Validate when |
@@ -80,6 +85,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | 10A-13 | Q10.5 | A fine-tuned open-weight model can match or beat Claude on our incident tasks at lower cost | Unknown | Team | Layer 12 evaluation results |
 | 10A-14 | Q10.5 | Weights trained on Tinker can be downloaded and the base model's license allows self-hosting them | Assumption | Irfan | Check Tinker docs and the base model license before the experiment |
 | 10A-15 | Q10.5 | Incident data is allowed to be sent to Tinker for training | Unknown | Team | A2 data and security constraints |
+| 10A-16 | Q10.25, Q10.26 | Exact price per input, output and cached token for each candidate model, and how each provider counts tokens | Unknown | Irfan | Provider price pages and docs at selection time (Q10.24) |
 
 ### Where Claude and ChatGPT disagreed
 _(none yet — only Claude used so far; ChatGPT comparison and team agreement are still open)_
