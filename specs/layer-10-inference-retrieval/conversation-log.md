@@ -15,6 +15,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.7 (Section A) | C | (this session) | See "Decisions A" below | None new. Related: 10A-7, 10A-9 | 10.1 |
 | Q10.8 (Section A) | C | (this session) | See "Decisions A" below | None new. Related: 10A-7, 10A-9 | 10.1 |
 | Q10.9 (Section A) | C | (this session) | See "Decisions A" below | None new | 10.2 |
+| Q10.10 (Section B) | C | (this session) | See "Decisions B" below | None new | 10.2 |
 
 ### Decisions A
 
@@ -27,6 +28,10 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 - **Q10.7 Own GPU cluster at small volume:** At small and steady volume, running our own GPU cluster is not justified by cost. The GPUs sit mostly idle and still cost money, and the team needs people to run them. A managed provider is cheaper and simpler. The decision can be justified only by control requirements, not cost: (1) data may not leave our network because of law or company rules (data residency); (2) a custom or fine-tuned model that no managed provider hosts; (3) strict control of model versions, with no dependence on a provider changing or retiring a model; (4) special latency or network needs, such as running offline or in a closed network; (5) a firm plan for volume to become large and steady soon, so that fixed GPU cost pays off. Even when justified, start smaller than a full cluster: rent one GPU server, or host the custom model with a provider, and grow only when volume requires it.
 - **Q10.8 Serving infrastructure for GPU memory and batching optimizations:** A dedicated LLM serving engine is needed, not a plain model script. vLLM is the main candidate: it manages KV cache memory in small pages (PagedAttention) so less GPU memory is wasted, uses continuous batching (a finished request is replaced at once by a new one, so the GPU stays busy), supports prefix caching, and offers an OpenAI-compatible API server. Other candidates are SGLang (actively developed, reported to suit workloads with repeated prefixes), TensorRT-LLM (NVIDIA GPUs only, high speed goal, longer setup) and Hugging Face TGI (reported by secondary sources to be in maintenance mode, so verify before choosing it for new work). The KV cache itself saves computation time but uses GPU memory; it does not save memory. This choice matters only if we self-host (Q10.3 fallback, Q10.4, Q10.7); with managed inference the provider does this work (Q10.6). The engine is chosen by benchmarking on our own traffic, not from published speed claims.
 - **Q10.9 Provider vs application responsibilities:** The provider owns running the model: GPUs, serving, scaling, availability and model updates behind its API. The application owns everything that must behave the same whichever provider is used: building requests in our own format, prompts and prompt versions, model and parameter choice, parsing and validating responses, validating and executing tools, retries, timeouts and fallback, token and cost accounting, logging with provenance, data and security decisions, and checking output quality. Rule: provider differences stop at the adapter, so the agent sees one behavior.
+
+### Decisions B
+
+- **Q10.10 One internal model interface:** The application defines one interface: a ModelRequest goes in and a ModelResult comes out. One adapter per provider implements it by converting our request into that provider's format, calling the provider, and converting the response back. The agent talks only to the interface and never to a provider.
 
 ### Open unknowns / assumptions A (all provisional)
 
