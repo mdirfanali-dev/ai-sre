@@ -25,6 +25,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.17 (Section B) | C | (this session) | See "Decisions B" below | None new | 10.2 |
 | Q10.18 (Section B) | C | (this session) | See "Decisions B" below | None new | 10.2 |
 | Q10.19 (Section B) | C | (this session) | See "Decisions B" below | None new | 10.2 |
+| Q10.20 (Section B) | C | (this session) | See "Decisions B" below | None new | 10.2 |
 
 ### Decisions A
 
@@ -50,6 +51,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 - **Q10.17 Provider refusal:** A refusal is a normal outcome, not a transport error. The adapter maps the provider's refusal signal to our own result status "refused" and carries the provider's message. The gateway does not retry the same request blindly and does not silently switch providers. The workflow or agent decides what happens next, for example rewording the request or escalating to a person. Every refusal is logged with provenance.
 - **Q10.18 Token limit vs completion:** Each adapter maps the provider's stop reasons to a small set of our own: completed, length_limit, tool_request, refused, error. Only "completed" is a finished answer. "length_limit" marks the result incomplete and it is not used as final. The caller may retry with a larger output limit or a shorter input, within budget.
 - **Q10.19 Disconnected stream:** A streamed response is complete only when it ends with the provider's explicit completion signal and a stop reason. A dropped connection, or a stream that ends without that signal, gives the status "interrupted". Partial text is kept for logs, flagged, and not used as final. Tokens may already be billed, so usage is still recorded. Retry follows the retry policy.
+- **Q10.20 Truncated JSON:** Truncated JSON is an incomplete result and is not repaired by guessing. Check the stop reason first: if it is length_limit, retry with a larger output limit or a smaller task. Otherwise retry within the retry limit. After the limits, fail with a clear error. The raw output is logged.
 
 ### Open unknowns / assumptions A (all provisional)
 
