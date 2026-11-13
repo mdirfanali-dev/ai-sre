@@ -63,6 +63,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.56 (Section D) | C | (this session) | See "Decisions D" below | TBD: access model waits on A2 (owner: A2 team) | 10.9 |
 | Q10.59 (Section E) | C | (this session) | See "Decisions E" below | TBD: evidence model waits on A9 (owner: A9 author) | 10.11 |
 | Q10.60 (Section E) | C | (this session) | See "Decisions E" below | None new | 10.11 |
+| Q10.61 (Section E) | C | (this session) | See "Decisions E" below | TBD: evidence kinds wait on A9 (owner: A9 author) | 10.11 |
 
 ### Decisions A
 
@@ -135,6 +136,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 
 - **Q10.59 Preserving contradictions (mechanism):** The context keeps both items with their source and time, under an explicit "conflict" marker. The system does not silently pick a winner. The agent and critic must consider the conflict, and it is shown to the engineer. TBD: the evidence structure comes from A9.
 - **Q10.60 Compressing context:** Order of steps: drop irrelevant and repeated material; reduce long logs to their key lines (errors, counts, time ranges); summarize old conversation turns. Identifiers, numbers, timestamps and error messages are kept word for word. Evidence that is cited is never compressed. Each compressed part keeps a pointer to the full record. Evaluation checks that compression does not lose important facts.
+- **Q10.61 Prioritizing evidence (mechanism):** First keep what is mandatory: the task, constraints, the current hypothesis and directly cited evidence. Then score the remaining evidence by relevance to the question, source reliability, recency, and whether it supports or contradicts the hypothesis. Fill the token budget from the top, leaving room for the answer. What is left out is listed with pointers to the full records. TBD: the evidence kinds come from A9.
 
 ### Open unknowns / assumptions A (all provisional)
 
