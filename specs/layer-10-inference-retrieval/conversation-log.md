@@ -2,6 +2,8 @@
 
 Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Agent Design). Both are not written yet, so every answer here is provisional.
 
+**TBD** means "to be decided": the mechanism is written, but a specific value or name has to come from another artifact (A2 or A9). Each TBD says what it waits on and who owns it, and is filled in when that artifact exists.
+
 ## Conversation Log
 
 | Questions | Agent | Conversation link | Decision reached | Open unknowns and owner | Artifact section |
@@ -12,7 +14,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.4 (Section A) | C | (this session) | See "Decisions A" below | See "Open unknowns / assumptions A" below | 10.1 |
 | Q10.5 (Section A) | C | (this session) | See "Decisions A" below | See "Open unknowns / assumptions A" below | 10.1, 10.4 |
 | Q10.6 (Section A) | C | (this session) | See "Decisions A" below | None for this question | 10.1 |
-| Q10.7 (Section A) | C | (this session) | See "Decisions A" below | None new. Related: 10A-7, 10A-9 | 10.1 |
+| Q10.7 (Section A) | C | (this session) | See "Decisions A" below | TBD: expected volume and control requirements wait on A2 (owner: A2 team). Related: 10A-7, 10A-9 | 10.1 |
 | Q10.8 (Section A) | C | (this session) | See "Decisions A" below | None new. Related: 10A-7, 10A-9 | 10.1 |
 | Q10.9 (Section A) | C | (this session) | See "Decisions A" below | None new | 10.2 |
 | Q10.10 (Section B) | C | (this session) | See "Decisions B" below | None new | 10.2 |
