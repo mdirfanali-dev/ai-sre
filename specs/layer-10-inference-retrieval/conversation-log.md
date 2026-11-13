@@ -42,6 +42,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.42 (Section D) | C | (this session) | See "Decisions D" below | See 10A-20 | 10.9 |
 | Q10.43 (Section D) | C | (this session) | See "Decisions D" below | None new | 10.10 |
 | Q10.44 (Section D) | C | (this session) | See "Decisions D" below | None new | 10.10 |
+| Q10.45 (Section D) | C | (this session) | See "Decisions D" below | None new | 10.9 |
 
 ### Decisions A
 
@@ -90,6 +91,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 - **Q10.42 Ingestion process:** (1) Collect documents from the agreed sources. (2) Read and clean the text while keeping structure (headings, code blocks). (3) Split into chunks with heading-aware chunking (Q10.43, Q10.44). (4) Attach metadata to each chunk: source, document id, version, heading path, date. (5) Build the search index (BM25 first) as a new index revision, so the previous revision stays usable. (6) Check the result with counts and sample searches. (7) Re-run when documents change, including removing deleted ones. Index revisions, stale documents and deleted documents are covered in Q10.52 to Q10.55.
 - **Q10.43 Dividing documents into retrievable units:** Split each document at its natural structure (sections and subsections), so every chunk covers one topic and can be understood alone. Chunks have a size limit; a section that is too long is split further at paragraph or step boundaries, with a small overlap. Very short neighbouring sections may be merged. Each chunk keeps a pointer to its document and position.
 - **Q10.44 Heading-aware chunking:** Chunks are cut at headings, and the full heading path (for example "PostgreSQL > Failover > Step 3") is stored with every chunk, both in the indexed text and in the metadata. A fixed-size cut can separate "run promote" from the heading that says which system and situation it belongs to; heading-aware chunking prevents this. Code blocks and numbered steps are never cut in the middle.
+- **Q10.45 Lexical retrieval for exact identifiers:** Use BM25, a lexical (exact word match) method. Engineers search for exact strings such as error codes, function names and configuration keys, and embedding-based search can blur such strings with similar ones. The tokenizer must keep identifiers such as ERR_4012 or max_connections whole (or index them both whole and split) so exact searches match.
 
 ### Open unknowns / assumptions A (all provisional)
 
