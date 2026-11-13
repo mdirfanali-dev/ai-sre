@@ -66,6 +66,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.61 (Section E) | C | (this session) | See "Decisions E" below | TBD: evidence kinds wait on A9 (owner: A9 author) | 10.11 |
 | Q10.62 (Section E) | C | (this session) | See "Decisions E" below | None new | 10.11 |
 | Q10.63 (Section E) | C | (this session) | See "Decisions E" below | None new | 10.11 |
+| Q10.64 (Section E) | C | (this session) | See "Decisions E" below | TBD: full version list waits on A9 (owner: A9 author) | 10.11, 10.12 |
 
 ### Decisions A
 
@@ -141,6 +142,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 - **Q10.61 Prioritizing evidence (mechanism):** First keep what is mandatory: the task, constraints, the current hypothesis and directly cited evidence. Then score the remaining evidence by relevance to the question, source reliability, recency, and whether it supports or contradicts the hypothesis. Fill the token budget from the top, leaving room for the answer. What is left out is listed with pointers to the full records. TBD: the evidence kinds come from A9.
 - **Q10.62 Provenance through summaries:** Every claim in a summary carries the id of the source evidence record (and the span when needed). The summarizer is required to output these ids. A check confirms every claim has at least one valid id, and a summary without them is rejected.
 - **Q10.63 Why summaries do not replace evidence:** A summary loses detail and can contain mistakes or invented statements. It is an interpretation, not the original observation. Engineers and audits need the original records to verify it. If only summaries existed, errors could not be found, and summaries of summaries would pile up errors. So both are kept, and the summary points to the records.
+- **Q10.64 Reproducing a diagnosis (mechanism):** Preserve: prompt version and skill version; model identity (Q10.23) and parameters; tool definition version; the version of the context assembly rules and the exact assembled context (or the inputs to rebuild it); the retrieval index revision (Q10.52) with the retrieved chunk ids and spans; the evidence records; compression settings; and the time. TBD: the complete version list comes from A9.
 
 ### Open unknowns / assumptions A (all provisional)
 
