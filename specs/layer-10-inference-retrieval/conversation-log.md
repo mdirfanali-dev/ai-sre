@@ -61,6 +61,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.39 (Section C) | C | (this session) | See "Decisions C" below | TBD: fallback policy waits on A2; see 10A-7 | 10.7 |
 | Q10.55 (Section D) | C | (this session) | See "Decisions D" below | None new | 10.9 |
 | Q10.56 (Section D) | C | (this session) | See "Decisions D" below | TBD: access model waits on A2 (owner: A2 team) | 10.9 |
+| Q10.59 (Section E) | C | (this session) | See "Decisions E" below | TBD: evidence model waits on A9 (owner: A9 author) | 10.11 |
 
 ### Decisions A
 
@@ -128,6 +129,10 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 - **Q10.54 Detecting stale documentation:** No single test exists, so signals are combined: age beyond a review date kept in metadata; mentions of services or versions that no longer exist; a newer document that conflicts with it; and engineer feedback that a procedure failed. Suspected stale documents are flagged, ranked lower and sent to the document owner for review, and are not silently deleted. Automatic detection is imperfect, so owner review is required.
 - **Q10.55 Deleted documents:** Each ingestion run checks which documents have disappeared from the source. The next index revision does not contain them (or marks them with a tombstone), so search no longer returns them. Older revisions stay unchanged, so earlier investigations can still be reproduced. Exception: if a document is removed for security or legal reasons, it is also removed from older revisions, with approval. Check: searching for text from a deleted document returns nothing.
 - **Q10.56 Document-level permissions (mechanism):** Each chunk carries the access information of its source document (the groups or roles allowed to read it), stored at ingestion. At search time results are filtered by the requester's permissions before ranking and before anything reaches the model, so the model never sees text the engineer may not read. The agent searches with the identity of the engineer who asked. The default is deny. Citations, snippets and result counts must not leak restricted documents. Access information is refreshed when permissions change. TBD: the access model comes from A2.
+
+### Decisions E
+
+- **Q10.59 Preserving contradictions (mechanism):** The context keeps both items with their source and time, under an explicit "conflict" marker. The system does not silently pick a winner. The agent and critic must consider the conflict, and it is shown to the engineer. TBD: the evidence structure comes from A9.
 
 ### Open unknowns / assumptions A (all provisional)
 
