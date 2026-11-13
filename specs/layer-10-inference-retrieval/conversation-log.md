@@ -71,6 +71,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.64 (Section E) | C | (this session) | See "Decisions E" below | TBD: full version list waits on A9 (owner: A9 author) | 10.11, 10.12 |
 | Q10.34 (Section C) | C | (this session) | See "Decisions C" below | TBD: loop steps and limits wait on A9 (owner: A9 author) | 10.8, 10.5 |
 | Q10.57 (Section E) | C | (this session) | See "Decisions E" below | TBD: evidence kinds and amounts wait on A9 (owner: A9 author) | 10.11 |
+| Q10.58 (Section E) | C | (this session) | See "Decisions E" below | TBD: available telemetry and how the agent requests it wait on A9 (owner: A9 author) | 10.11 |
 
 ### Decisions A
 
@@ -149,6 +150,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 - **Q10.63 Why summaries do not replace evidence:** A summary loses detail and can contain mistakes or invented statements. It is an interpretation, not the original observation. Engineers and audits need the original records to verify it. If only summaries existed, errors could not be found, and summaries of summaries would pile up errors. So both are kept, and the summary points to the records.
 - **Q10.64 Reproducing a diagnosis (mechanism):** Preserve: prompt version and skill version; model identity (Q10.23) and parameters; tool definition version; the version of the context assembly rules and the exact assembled context (or the inputs to rebuild it); the retrieval index revision (Q10.52) with the retrieved chunk ids and spans; the evidence records; compression settings; and the time. TBD: the complete version list comes from A9.
 - **Q10.57 Deciding what belongs in the context (mechanism):** Thousands of lines cannot all be sent. Steps: (1) select what is relevant to the question and the current hypothesis (time window, related services, error level, retrieval results); (2) filter by the requester's permissions (Q10.56); (3) fill the token budget in priority order (Q10.61); (4) compress the rest (Q10.60), for example repeated log lines become one line with a count; (5) keep a list of what was left out, with pointers, so the agent can ask for more. Every part keeps its source marker. TBD: the evidence kinds and amounts come from A9.
+- **Q10.58 Assembling live telemetry with documentation (mechanism):** The two sources differ in nature: telemetry is recent and numeric, documentation is older and written text. The context holds them as separate labeled parts ("current observations" and "reference documents"), each with its source, time and version. Documents are guidance, not proof: their statements are checked against telemetry. A contradiction is shown and not hidden (Q10.59). Telemetry is fetched fresh and marked with its age; documents come from a fixed index revision (Q10.52). TBD: which telemetry exists and how the agent requests it come from A9.
 
 ### Open unknowns / assumptions A (all provisional)
 
