@@ -43,6 +43,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.43 (Section D) | C | (this session) | See "Decisions D" below | None new | 10.10 |
 | Q10.44 (Section D) | C | (this session) | See "Decisions D" below | None new | 10.10 |
 | Q10.45 (Section D) | C | (this session) | See "Decisions D" below | None new | 10.9 |
+| Q10.46 (Section D) | C | (this session) | See "Decisions D" below | None new | 10.9 |
 
 ### Decisions A
 
@@ -92,6 +93,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 - **Q10.43 Dividing documents into retrievable units:** Split each document at its natural structure (sections and subsections), so every chunk covers one topic and can be understood alone. Chunks have a size limit; a section that is too long is split further at paragraph or step boundaries, with a small overlap. Very short neighbouring sections may be merged. Each chunk keeps a pointer to its document and position.
 - **Q10.44 Heading-aware chunking:** Chunks are cut at headings, and the full heading path (for example "PostgreSQL > Failover > Step 3") is stored with every chunk, both in the indexed text and in the metadata. A fixed-size cut can separate "run promote" from the heading that says which system and situation it belongs to; heading-aware chunking prevents this. Code blocks and numbered steps are never cut in the middle.
 - **Q10.45 Lexical retrieval for exact identifiers:** Use BM25, a lexical (exact word match) method. Engineers search for exact strings such as error codes, function names and configuration keys, and embedding-based search can blur such strings with similar ones. The tokenizer must keep identifiers such as ERR_4012 or max_connections whole (or index them both whole and split) so exact searches match.
+- **Q10.46 Importance of rare terms:** BM25 weights each term by inverse document frequency (IDF): a term found in few documents gets a high weight, and a term found in almost all documents (such as "error") gets a low weight. So a rare error identifier that appears in only a few documents ranks those documents high. BM25 also limits the gain from repeating a term many times and adjusts for document length.
 
 ### Open unknowns / assumptions A (all provisional)
 
