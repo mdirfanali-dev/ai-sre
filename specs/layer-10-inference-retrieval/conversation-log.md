@@ -38,6 +38,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.35 (Section C) | C | (this session) | See "Decisions C" below | See 10A-18 | 10.8, 10.5 |
 | Q10.36 (Section C) | C | (this session) | See "Decisions C" below | None new | 10.8, 10.5 |
 | Q10.40 (Section D) | C | (this session) | See "Decisions D" below | TBD: runbook sources wait on A2 (owner: A2 team) | 10.9 |
+| Q10.41 (Section D) | C | (this session) | See "Decisions D" below | None new | 10.9 |
 
 ### Decisions A
 
@@ -82,6 +83,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 ### Decisions D
 
 - **Q10.40 Runbooks during investigation (mechanism):** Runbooks are ingested into the same searchable index as other documents (Q10.42). The agent gets a retrieval tool it can call during an investigation with a query, for example an error code or service name. It receives the most relevant runbook sections with their source, version and section path. Runbooks are reference information for the agent, not commands: any action they suggest still goes through the normal tool validation (Q10.16). Incident priority or service name can be stored as metadata to filter results. TBD: which runbook sources exist comes from A2.
+- **Q10.41 Retrieval improving answers:** Without retrieval the model answers only from what it learned in training, which knows nothing about our systems and may be out of date, so it may guess. With retrieval, at the time a question is asked, the platform searches our documents, puts the most relevant passages into the prompt, and the model answers from them. This lets answers use our own current procedures, cite the source passage, and be checked more easily. Retrieval happens when a question is asked, not during ingestion. Ingestion is the earlier preparation step (Q10.42).
 
 ### Open unknowns / assumptions A (all provisional)
 
