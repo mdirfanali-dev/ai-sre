@@ -59,6 +59,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.37 (Section C) | C | (this session) | See "Decisions C" below | TBD: which component retries waits on A9 (owner: A9 author) | 10.7 |
 | Q10.38 (Section C) | C | (this session) | See "Decisions C" below | None new | 10.7 |
 | Q10.39 (Section C) | C | (this session) | See "Decisions C" below | TBD: fallback policy waits on A2; see 10A-7 | 10.7 |
+| Q10.55 (Section D) | C | (this session) | See "Decisions D" below | None new | 10.9 |
 
 ### Decisions A
 
@@ -124,6 +125,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 - **Q10.52 Immutable index revisions:** Every ingestion run creates a new index revision with its own id, and a revision is never edited. It records the documents, their versions and content hashes, and the chunking and tokenizer settings. Each investigation records the revision it used, so it can be reproduced later. Old revisions are kept for the agreed retention period, or can be rebuilt from the stored document versions.
 - **Q10.53 Preserving source version and text span:** Each citation stores the document id, the document version, the exact text span (start and end position) and a content hash of the cited text. If the document changes later, the cited text can still be shown from the stored version, and the hash proves it was not altered.
 - **Q10.54 Detecting stale documentation:** No single test exists, so signals are combined: age beyond a review date kept in metadata; mentions of services or versions that no longer exist; a newer document that conflicts with it; and engineer feedback that a procedure failed. Suspected stale documents are flagged, ranked lower and sent to the document owner for review, and are not silently deleted. Automatic detection is imperfect, so owner review is required.
+- **Q10.55 Deleted documents:** Each ingestion run checks which documents have disappeared from the source. The next index revision does not contain them (or marks them with a tombstone), so search no longer returns them. Older revisions stay unchanged, so earlier investigations can still be reproduced. Exception: if a document is removed for security or legal reasons, it is also removed from older revisions, with approval. Check: searching for text from a deleted document returns nothing.
 
 ### Open unknowns / assumptions A (all provisional)
 
