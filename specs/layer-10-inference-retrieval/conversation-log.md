@@ -40,6 +40,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.40 (Section D) | C | (this session) | See "Decisions D" below | TBD: runbook sources wait on A2 (owner: A2 team) | 10.9 |
 | Q10.41 (Section D) | C | (this session) | See "Decisions D" below | None new | 10.9 |
 | Q10.42 (Section D) | C | (this session) | See "Decisions D" below | See 10A-20 | 10.9 |
+| Q10.43 (Section D) | C | (this session) | See "Decisions D" below | None new | 10.10 |
 
 ### Decisions A
 
@@ -86,6 +87,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 - **Q10.40 Runbooks during investigation (mechanism):** Runbooks are ingested into the same searchable index as other documents (Q10.42). The agent gets a retrieval tool it can call during an investigation with a query, for example an error code or service name. It receives the most relevant runbook sections with their source, version and section path. Runbooks are reference information for the agent, not commands: any action they suggest still goes through the normal tool validation (Q10.16). Incident priority or service name can be stored as metadata to filter results. TBD: which runbook sources exist comes from A2.
 - **Q10.41 Retrieval improving answers:** Without retrieval the model answers only from what it learned in training, which knows nothing about our systems and may be out of date, so it may guess. With retrieval, at the time a question is asked, the platform searches our documents, puts the most relevant passages into the prompt, and the model answers from them. This lets answers use our own current procedures, cite the source passage, and be checked more easily. Retrieval happens when a question is asked, not during ingestion. Ingestion is the earlier preparation step (Q10.42).
 - **Q10.42 Ingestion process:** (1) Collect documents from the agreed sources. (2) Read and clean the text while keeping structure (headings, code blocks). (3) Split into chunks with heading-aware chunking (Q10.43, Q10.44). (4) Attach metadata to each chunk: source, document id, version, heading path, date. (5) Build the search index (BM25 first) as a new index revision, so the previous revision stays usable. (6) Check the result with counts and sample searches. (7) Re-run when documents change, including removing deleted ones. Index revisions, stale documents and deleted documents are covered in Q10.52 to Q10.55.
+- **Q10.43 Dividing documents into retrievable units:** Split each document at its natural structure (sections and subsections), so every chunk covers one topic and can be understood alone. Chunks have a size limit; a section that is too long is split further at paragraph or step boundaries, with a small overlap. Very short neighbouring sections may be merged. Each chunk keeps a pointer to its document and position.
 
 ### Open unknowns / assumptions A (all provisional)
 
