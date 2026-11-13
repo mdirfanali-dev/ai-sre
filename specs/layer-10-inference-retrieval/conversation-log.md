@@ -48,6 +48,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.48 (Section D) | C | (this session) | See "Decisions D" below | None new | 10.9 |
 | Q10.49 (Section D) | C | (this session) | See "Decisions D" below | None new | 10.9 |
 | Q10.50 (Section D) | C | (this session) | See "Decisions D" below | See 10A-21 | 10.9 |
+| Q10.51 (Section D) | C | (this session) | See "Decisions D" below | See 10A-22 | 10.13 |
 
 ### Decisions A
 
@@ -102,6 +103,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 - **Q10.48 Search by conceptual similarity:** Semantic (vector) search: chunks are embedded at ingestion and stored in a vector index. At search time the query is embedded and the nearest chunks are returned.
 - **Q10.49 Combining keyword and semantic results:** Hybrid retrieval: run BM25 and vector search separately, then merge the two ranked lists with Reciprocal Rank Fusion. Each document gets about 1 divided by (60 plus its rank) from each list, and the scores are added. Documents ranked high in both lists rise to the top. RRF uses ranks and not raw scores because BM25 scores and similarity scores are on different scales.
 - **Q10.50 Why BM25 first:** Exact technical identifiers are the main need, and BM25 handles them reliably and explainably. It needs no embedding model, no vector database and no extra cost, runs inside the program, and gives the same output for the same input, so it is reproducible. Embeddings are added only if evaluation (Q10.51) shows that vocabulary mismatch causes missed documents.
+- **Q10.51 Measuring retrieval quality:** Build a labeled set of real questions with known correct documents or chunks (ground truth). Measure Recall@10 (is the correct document in the top 10), Precision@10 (how many of the top 10 are relevant) and MRR (mean of 1 divided by the rank of the first correct result). Re-run the same set after every change to chunking or search method and compare. Keep the results together with the index revision.
 
 ### Open unknowns / assumptions A (all provisional)
 
@@ -128,6 +130,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | 10A-19 | Q10.28 | An emergency reserve pool exists, and who may approve using it | Unknown | Team (stakeholders) | A2 and stakeholder agreement |
 | 10A-20 | Q10.42 | The documents are text-based with headings (for example Markdown, HTML or wiki pages), not scanned images | Assumption | Irfan | A2 document sources |
 | 10A-21 | Q10.47, Q10.50 | Missing documents because of different wording will be rare enough in V1 for BM25 alone | Assumption | Irfan | Retrieval evaluation results (Q10.51) |
+| 10A-22 | Q10.51 | A labeled set of real questions with correct documents can be built from past incidents | Unknown | Team | A3 incident catalog |
 
 ### Where Claude and ChatGPT disagreed
 _(none yet — only Claude used so far; ChatGPT comparison and team agreement are still open)_
