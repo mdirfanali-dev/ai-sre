@@ -62,6 +62,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.55 (Section D) | C | (this session) | See "Decisions D" below | None new | 10.9 |
 | Q10.56 (Section D) | C | (this session) | See "Decisions D" below | TBD: access model waits on A2 (owner: A2 team) | 10.9 |
 | Q10.59 (Section E) | C | (this session) | See "Decisions E" below | TBD: evidence model waits on A9 (owner: A9 author) | 10.11 |
+| Q10.60 (Section E) | C | (this session) | See "Decisions E" below | None new | 10.11 |
 
 ### Decisions A
 
@@ -133,6 +134,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 ### Decisions E
 
 - **Q10.59 Preserving contradictions (mechanism):** The context keeps both items with their source and time, under an explicit "conflict" marker. The system does not silently pick a winner. The agent and critic must consider the conflict, and it is shown to the engineer. TBD: the evidence structure comes from A9.
+- **Q10.60 Compressing context:** Order of steps: drop irrelevant and repeated material; reduce long logs to their key lines (errors, counts, time ranges); summarize old conversation turns. Identifiers, numbers, timestamps and error messages are kept word for word. Evidence that is cited is never compressed. Each compressed part keeps a pointer to the full record. Evaluation checks that compression does not lose important facts.
 
 ### Open unknowns / assumptions A (all provisional)
 
