@@ -47,6 +47,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.47 (Section D) | C | (this session) | See "Decisions D" below | See 10A-21 | 10.9 |
 | Q10.48 (Section D) | C | (this session) | See "Decisions D" below | None new | 10.9 |
 | Q10.49 (Section D) | C | (this session) | See "Decisions D" below | None new | 10.9 |
+| Q10.50 (Section D) | C | (this session) | See "Decisions D" below | See 10A-21 | 10.9 |
 
 ### Decisions A
 
@@ -100,6 +101,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 - **Q10.47 Vector embeddings:** Embeddings turn text into vectors by meaning, so a question and a document that use different words with similar meaning end up close together. The question is embedded and compared with the chunk vectors (cosine similarity), and the closest chunks are returned. This fixes vocabulary mismatch, for example "the database answers slowly" against "high query latency". Weaknesses: similar exact identifiers can blur, and it needs an embedding model and a vector index, which is extra infrastructure.
 - **Q10.48 Search by conceptual similarity:** Semantic (vector) search: chunks are embedded at ingestion and stored in a vector index. At search time the query is embedded and the nearest chunks are returned.
 - **Q10.49 Combining keyword and semantic results:** Hybrid retrieval: run BM25 and vector search separately, then merge the two ranked lists with Reciprocal Rank Fusion. Each document gets about 1 divided by (60 plus its rank) from each list, and the scores are added. Documents ranked high in both lists rise to the top. RRF uses ranks and not raw scores because BM25 scores and similarity scores are on different scales.
+- **Q10.50 Why BM25 first:** Exact technical identifiers are the main need, and BM25 handles them reliably and explainably. It needs no embedding model, no vector database and no extra cost, runs inside the program, and gives the same output for the same input, so it is reproducible. Embeddings are added only if evaluation (Q10.51) shows that vocabulary mismatch causes missed documents.
 
 ### Open unknowns / assumptions A (all provisional)
 
