@@ -55,6 +55,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.30 (Section C) | C | (this session) | See "Decisions C" below | None new | 10.6 |
 | Q10.31 (Section C) | C | (this session) | See "Decisions C" below | TBD: per-incident limit waits on A9 (owner: A9 author) | 10.6 |
 | Q10.32 (Section C) | C | (this session) | See "Decisions C" below | TBD: time limits wait on A2 (owner: A2 team) | 10.7 |
+| Q10.33 (Section C) | C | (this session) | See "Decisions C" below | TBD: time limits wait on A2 (owner: A2 team) | 10.7 |
 
 ### Decisions A
 
@@ -98,6 +99,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 - **Q10.30 Controlling concurrent inference requests:** One central limiter in the gateway allows at most N requests in flight per provider, with N kept below the provider's rate limit. The rest wait in a bounded queue, with urgent incidents served first. When the queue is full, new work is delayed or rejected with a clear status (backpressure). If the provider answers "too many requests", the gateway slows down. Incidents wait; they do not fail because of load.
 - **Q10.31 Per-incident concurrency (mechanism):** Each incident has its own maximum number of parallel calls, taken from the central limit. Scheduling is fair across incidents: an incident that asks for ten parallel operations cannot take the capacity of the others, and incidents take turns in the queue. TBD: the per-incident number comes from A9 (how much parallelism the agent design needs).
 - **Q10.32 Enforcing a deadline (mechanism):** Each investigation gets an absolute deadline when it starts (start time plus allowed window). Before every new call, the remaining time is checked and the call never waits longer than that. When the deadline passes, new calls stop, running calls are cancelled, reserved budget is released, and the investigation ends with the best result so far or escalates to a person. TBD: the time values come from A2.
+- **Q10.33 Two time limits (mechanism):** The request timeout (for example 30 seconds) protects against one hung call. The investigation deadline (for example 10 minutes) is the hard limit for the whole investigation. The effective timeout of a call is the smaller of the request timeout and the time left before the deadline. A timed-out call does not end the investigation; it may be retried while time remains. When the deadline is reached, everything stops. TBD: the values come from A2.
 
 ### Decisions D
 
