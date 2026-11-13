@@ -4,6 +4,33 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 
 **TBD** means "to be decided": the mechanism is written, but a specific value or name has to come from another artifact (A2 or A9). Each TBD says what it waits on and who owns it, and is filled in when that artifact exists.
 
+## What this log is waiting on
+
+Most answers below are complete. The questions in this table are written as a mechanism, but one part is marked **TBD** (to be decided) because it depends on another artifact. 20 questions are affected: 9 wait on A2 (Scope and Constraints) and 11 wait on A9 (Agent Design). When those artifacts exist, only the missing value or name has to be filled in; the rest of each answer stays.
+
+| Question | What is missing | Waiting on | Owner |
+|---|---|---|---|
+| Q10.7 | expected volume and control requirements | A2 | A2 team |
+| Q10.13 | task types and per-task values | A9 | A9 author |
+| Q10.16 | tool list and schemas | A9 | A9 author |
+| Q10.22 | which agent skills need which capability | A9 | A9 author |
+| Q10.24 | the constraints used to score providers | A2 | A2 team |
+| Q10.27 | cost limits | A2 | A2 team |
+| Q10.28 | per-incident cost limit | A2 | A2 team |
+| Q10.31 | per-incident limit on parallel calls | A9 | A9 author |
+| Q10.32 | time limits | A2 | A2 team |
+| Q10.33 | time limits | A2 | A2 team |
+| Q10.34 | loop steps and limits | A9 | A9 author |
+| Q10.37 | which component retries | A9 | A9 author |
+| Q10.39 | fallback policy | A2 | A2 team |
+| Q10.40 | runbook sources | A2 | A2 team |
+| Q10.56 | access model | A2 | A2 team |
+| Q10.57 | evidence kinds and amounts | A9 | A9 author |
+| Q10.58 | available telemetry and how the agent requests it | A9 | A9 author |
+| Q10.59 | evidence model | A9 | A9 author |
+| Q10.61 | evidence kinds | A9 | A9 author |
+| Q10.64 | full version list | A9 | A9 author |
+
 ## Conversation Log
 
 | Questions | Agent | Conversation link | Decision reached | Open unknowns and owner | Artifact section |
