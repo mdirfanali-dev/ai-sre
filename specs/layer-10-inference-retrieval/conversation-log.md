@@ -69,6 +69,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.62 (Section E) | C | (this session) | See "Decisions E" below | None new | 10.11 |
 | Q10.63 (Section E) | C | (this session) | See "Decisions E" below | None new | 10.11 |
 | Q10.64 (Section E) | C | (this session) | See "Decisions E" below | TBD: full version list waits on A9 (owner: A9 author) | 10.11, 10.12 |
+| Q10.34 (Section C) | C | (this session) | See "Decisions C" below | TBD: loop steps and limits wait on A9 (owner: A9 author) | 10.8, 10.5 |
 
 ### Decisions A
 
@@ -116,6 +117,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 - **Q10.37 Controlling retry amplification (mechanism):** Retries happen in one layer only, normally the gateway. Other layers report failures upward and do not retry model calls themselves. Without this, three layers with three attempts each can turn one request into 27. Attempts are capped (for example two or three), each retry waits longer than the last (exponential backoff with a little random delay), each retry is charged to the incident budget, and the deadline is respected. Only temporary errors are retried. TBD: which component owns retries is decided in A9.
 - **Q10.38 No retry on permanent authentication errors:** A wrong or expired key fails the same way every time, so retrying only wastes time and cost, and repeated bad attempts can get the account blocked. The request fails fast, the provider is marked as misconfigured, and operators are alerted. This differs from temporary errors (too many requests, server errors, timeouts), which may be retried.
 - **Q10.39 Automatic cross-provider fallback (mechanism):** Risks: the other model behaves differently, and prompts written for one model may fail on another; the other model may lack a required capability (Q10.22); data goes to another provider, which may break the data rules (10A-7); costs differ and can break the budget; all requests arriving at once can overload the second provider; and tracking which model produced which result gets harder. Automatic fallback stays disabled in V1. A failure is shown clearly, the request waits in the queue or goes to a person. After evaluation, fallback can be enabled one skill at a time, only to approved providers, with budget and data checks. TBD: the fallback policy comes from A2.
+- **Q10.34 Cumulative token tracking (mechanism):** Every model call is tagged with the incident id and its role (agent, critic or revision). At the end of each call its usage (input, output and cached tokens) is added to the incident's ledger (Q10.28). The total is the sum of all calls, and it can be split by role. Before each loop round the remaining budget is checked (reservation, Q10.29), and the number of rounds is capped, otherwise a critic and revise cycle cannot be stopped from spending. Tokens used by retries go into the same ledger (Q10.37). TBD: the loop steps, their number and their limits come from A9.
 
 ### Decisions D
 
