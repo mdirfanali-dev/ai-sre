@@ -49,6 +49,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.49 (Section D) | C | (this session) | See "Decisions D" below | None new | 10.9 |
 | Q10.50 (Section D) | C | (this session) | See "Decisions D" below | See 10A-21 | 10.9 |
 | Q10.51 (Section D) | C | (this session) | See "Decisions D" below | See 10A-22 | 10.13 |
+| Q10.52 (Section D) | C | (this session) | See "Decisions D" below | None new | 10.9 |
 
 ### Decisions A
 
@@ -104,6 +105,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 - **Q10.49 Combining keyword and semantic results:** Hybrid retrieval: run BM25 and vector search separately, then merge the two ranked lists with Reciprocal Rank Fusion. Each document gets about 1 divided by (60 plus its rank) from each list, and the scores are added. Documents ranked high in both lists rise to the top. RRF uses ranks and not raw scores because BM25 scores and similarity scores are on different scales.
 - **Q10.50 Why BM25 first:** Exact technical identifiers are the main need, and BM25 handles them reliably and explainably. It needs no embedding model, no vector database and no extra cost, runs inside the program, and gives the same output for the same input, so it is reproducible. Embeddings are added only if evaluation (Q10.51) shows that vocabulary mismatch causes missed documents.
 - **Q10.51 Measuring retrieval quality:** Build a labeled set of real questions with known correct documents or chunks (ground truth). Measure Recall@10 (is the correct document in the top 10), Precision@10 (how many of the top 10 are relevant) and MRR (mean of 1 divided by the rank of the first correct result). Re-run the same set after every change to chunking or search method and compare. Keep the results together with the index revision.
+- **Q10.52 Immutable index revisions:** Every ingestion run creates a new index revision with its own id, and a revision is never edited. It records the documents, their versions and content hashes, and the chunking and tokenizer settings. Each investigation records the revision it used, so it can be reproduced later. Old revisions are kept for the agreed retention period, or can be rebuilt from the stored document versions.
 
 ### Open unknowns / assumptions A (all provisional)
 
