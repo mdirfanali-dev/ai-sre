@@ -57,6 +57,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.32 (Section C) | C | (this session) | See "Decisions C" below | TBD: time limits wait on A2 (owner: A2 team) | 10.7 |
 | Q10.33 (Section C) | C | (this session) | See "Decisions C" below | TBD: time limits wait on A2 (owner: A2 team) | 10.7 |
 | Q10.37 (Section C) | C | (this session) | See "Decisions C" below | TBD: which component retries waits on A9 (owner: A9 author) | 10.7 |
+| Q10.38 (Section C) | C | (this session) | See "Decisions C" below | None new | 10.7 |
 
 ### Decisions A
 
@@ -102,6 +103,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 - **Q10.32 Enforcing a deadline (mechanism):** Each investigation gets an absolute deadline when it starts (start time plus allowed window). Before every new call, the remaining time is checked and the call never waits longer than that. When the deadline passes, new calls stop, running calls are cancelled, reserved budget is released, and the investigation ends with the best result so far or escalates to a person. TBD: the time values come from A2.
 - **Q10.33 Two time limits (mechanism):** The request timeout (for example 30 seconds) protects against one hung call. The investigation deadline (for example 10 minutes) is the hard limit for the whole investigation. The effective timeout of a call is the smaller of the request timeout and the time left before the deadline. A timed-out call does not end the investigation; it may be retried while time remains. When the deadline is reached, everything stops. TBD: the values come from A2.
 - **Q10.37 Controlling retry amplification (mechanism):** Retries happen in one layer only, normally the gateway. Other layers report failures upward and do not retry model calls themselves. Without this, three layers with three attempts each can turn one request into 27. Attempts are capped (for example two or three), each retry waits longer than the last (exponential backoff with a little random delay), each retry is charged to the incident budget, and the deadline is respected. Only temporary errors are retried. TBD: which component owns retries is decided in A9.
+- **Q10.38 No retry on permanent authentication errors:** A wrong or expired key fails the same way every time, so retrying only wastes time and cost, and repeated bad attempts can get the account blocked. The request fails fast, the provider is marked as misconfigured, and operators are alerted. This differs from temporary errors (too many requests, server errors, timeouts), which may be retried.
 
 ### Decisions D
 
