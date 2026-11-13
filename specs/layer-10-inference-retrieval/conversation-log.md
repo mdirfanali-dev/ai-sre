@@ -45,6 +45,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.45 (Section D) | C | (this session) | See "Decisions D" below | None new | 10.9 |
 | Q10.46 (Section D) | C | (this session) | See "Decisions D" below | None new | 10.9 |
 | Q10.47 (Section D) | C | (this session) | See "Decisions D" below | See 10A-21 | 10.9 |
+| Q10.48 (Section D) | C | (this session) | See "Decisions D" below | None new | 10.9 |
 
 ### Decisions A
 
@@ -96,6 +97,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 - **Q10.45 Lexical retrieval for exact identifiers:** Use BM25, a lexical (exact word match) method. Engineers search for exact strings such as error codes, function names and configuration keys, and embedding-based search can blur such strings with similar ones. The tokenizer must keep identifiers such as ERR_4012 or max_connections whole (or index them both whole and split) so exact searches match.
 - **Q10.46 Importance of rare terms:** BM25 weights each term by inverse document frequency (IDF): a term found in few documents gets a high weight, and a term found in almost all documents (such as "error") gets a low weight. So a rare error identifier that appears in only a few documents ranks those documents high. BM25 also limits the gain from repeating a term many times and adjusts for document length.
 - **Q10.47 Vector embeddings:** Embeddings turn text into vectors by meaning, so a question and a document that use different words with similar meaning end up close together. The question is embedded and compared with the chunk vectors (cosine similarity), and the closest chunks are returned. This fixes vocabulary mismatch, for example "the database answers slowly" against "high query latency". Weaknesses: similar exact identifiers can blur, and it needs an embedding model and a vector index, which is extra infrastructure.
+- **Q10.48 Search by conceptual similarity:** Semantic (vector) search: chunks are embedded at ingestion and stored in a vector index. At search time the query is embedded and the nearest chunks are returned.
 
 ### Open unknowns / assumptions A (all provisional)
 
