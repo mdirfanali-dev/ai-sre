@@ -37,6 +37,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.29 (Section C) | C | (this session) | See "Decisions C" below | None new | 10.5 |
 | Q10.35 (Section C) | C | (this session) | See "Decisions C" below | See 10A-18 | 10.8, 10.5 |
 | Q10.36 (Section C) | C | (this session) | See "Decisions C" below | None new | 10.8, 10.5 |
+| Q10.40 (Section D) | C | (this session) | See "Decisions D" below | TBD: runbook sources wait on A2 (owner: A2 team) | 10.9 |
 
 ### Decisions A
 
@@ -77,6 +78,10 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 - **Q10.29 Cost reservations:** Before a call starts, estimate its worst-case cost (counted input tokens plus the maximum output tokens, priced) and reserve that amount from the incident budget in one atomic step. If the budget cannot cover it, the call waits or is refused and does not start. When the call finishes, replace the reservation with the real usage and release the unused remainder. Because the reservation happens before the call and cannot be taken twice, several parallel calls cannot together exceed the budget.
 - **Q10.35 Missing usage report:** Never record zero usage. Record an estimate, flagged "estimated": input tokens counted by us, output tokens counted from the text received, or the maximum output limit if the response was lost. The estimate stays charged to the budget. The platform keeps its own usage log and regularly reconciles it with the provider's usage reports and invoices. Differences correct the ledger and improve the estimates.
 - **Q10.36 Why not release the reservation at once:** The tokens are already consumed and billed, but their amount is unknown. Releasing the reservation would show that money as free while it is actually spent. New requests could then use it, and the total spending would go over the cap. So the reservation is kept (at the worst case) until the real usage is known, or until an estimate replaces it, flagged as uncertain.
+
+### Decisions D
+
+- **Q10.40 Runbooks during investigation (mechanism):** Runbooks are ingested into the same searchable index as other documents (Q10.42). The agent gets a retrieval tool it can call during an investigation with a query, for example an error code or service name. It receives the most relevant runbook sections with their source, version and section path. Runbooks are reference information for the agent, not commands: any action they suggest still goes through the normal tool validation (Q10.16). Incident priority or service name can be stored as metadata to filter results. TBD: which runbook sources exist comes from A2.
 
 ### Open unknowns / assumptions A (all provisional)
 
