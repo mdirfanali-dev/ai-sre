@@ -53,6 +53,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.53 (Section D) | C | (this session) | See "Decisions D" below | None new | 10.9 |
 | Q10.54 (Section D) | C | (this session) | See "Decisions D" below | None new | 10.9 |
 | Q10.30 (Section C) | C | (this session) | See "Decisions C" below | None new | 10.6 |
+| Q10.31 (Section C) | C | (this session) | See "Decisions C" below | TBD: per-incident limit waits on A9 (owner: A9 author) | 10.6 |
 
 ### Decisions A
 
@@ -94,6 +95,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 - **Q10.35 Missing usage report:** Never record zero usage. Record an estimate, flagged "estimated": input tokens counted by us, output tokens counted from the text received, or the maximum output limit if the response was lost. The estimate stays charged to the budget. The platform keeps its own usage log and regularly reconciles it with the provider's usage reports and invoices. Differences correct the ledger and improve the estimates.
 - **Q10.36 Why not release the reservation at once:** The tokens are already consumed and billed, but their amount is unknown. Releasing the reservation would show that money as free while it is actually spent. New requests could then use it, and the total spending would go over the cap. So the reservation is kept (at the worst case) until the real usage is known, or until an estimate replaces it, flagged as uncertain.
 - **Q10.30 Controlling concurrent inference requests:** One central limiter in the gateway allows at most N requests in flight per provider, with N kept below the provider's rate limit. The rest wait in a bounded queue, with urgent incidents served first. When the queue is full, new work is delayed or rejected with a clear status (backpressure). If the provider answers "too many requests", the gateway slows down. Incidents wait; they do not fail because of load.
+- **Q10.31 Per-incident concurrency (mechanism):** Each incident has its own maximum number of parallel calls, taken from the central limit. Scheduling is fair across incidents: an incident that asks for ten parallel operations cannot take the capacity of the others, and incidents take turns in the queue. TBD: the per-incident number comes from A9 (how much parallelism the agent design needs).
 
 ### Decisions D
 
