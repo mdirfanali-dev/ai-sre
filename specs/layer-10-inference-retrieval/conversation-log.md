@@ -58,6 +58,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.33 (Section C) | C | (this session) | See "Decisions C" below | TBD: time limits wait on A2 (owner: A2 team) | 10.7 |
 | Q10.37 (Section C) | C | (this session) | See "Decisions C" below | TBD: which component retries waits on A9 (owner: A9 author) | 10.7 |
 | Q10.38 (Section C) | C | (this session) | See "Decisions C" below | None new | 10.7 |
+| Q10.39 (Section C) | C | (this session) | See "Decisions C" below | TBD: fallback policy waits on A2; see 10A-7 | 10.7 |
 
 ### Decisions A
 
@@ -104,6 +105,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 - **Q10.33 Two time limits (mechanism):** The request timeout (for example 30 seconds) protects against one hung call. The investigation deadline (for example 10 minutes) is the hard limit for the whole investigation. The effective timeout of a call is the smaller of the request timeout and the time left before the deadline. A timed-out call does not end the investigation; it may be retried while time remains. When the deadline is reached, everything stops. TBD: the values come from A2.
 - **Q10.37 Controlling retry amplification (mechanism):** Retries happen in one layer only, normally the gateway. Other layers report failures upward and do not retry model calls themselves. Without this, three layers with three attempts each can turn one request into 27. Attempts are capped (for example two or three), each retry waits longer than the last (exponential backoff with a little random delay), each retry is charged to the incident budget, and the deadline is respected. Only temporary errors are retried. TBD: which component owns retries is decided in A9.
 - **Q10.38 No retry on permanent authentication errors:** A wrong or expired key fails the same way every time, so retrying only wastes time and cost, and repeated bad attempts can get the account blocked. The request fails fast, the provider is marked as misconfigured, and operators are alerted. This differs from temporary errors (too many requests, server errors, timeouts), which may be retried.
+- **Q10.39 Automatic cross-provider fallback (mechanism):** Risks: the other model behaves differently, and prompts written for one model may fail on another; the other model may lack a required capability (Q10.22); data goes to another provider, which may break the data rules (10A-7); costs differ and can break the budget; all requests arriving at once can overload the second provider; and tracking which model produced which result gets harder. Automatic fallback stays disabled in V1. A failure is shown clearly, the request waits in the queue or goes to a person. After evaluation, fallback can be enabled one skill at a time, only to approved providers, with budget and data checks. TBD: the fallback policy comes from A2.
 
 ### Decisions D
 
