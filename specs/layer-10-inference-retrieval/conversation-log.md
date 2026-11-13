@@ -44,6 +44,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.44 (Section D) | C | (this session) | See "Decisions D" below | None new | 10.10 |
 | Q10.45 (Section D) | C | (this session) | See "Decisions D" below | None new | 10.9 |
 | Q10.46 (Section D) | C | (this session) | See "Decisions D" below | None new | 10.9 |
+| Q10.47 (Section D) | C | (this session) | See "Decisions D" below | See 10A-21 | 10.9 |
 
 ### Decisions A
 
@@ -94,6 +95,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 - **Q10.44 Heading-aware chunking:** Chunks are cut at headings, and the full heading path (for example "PostgreSQL > Failover > Step 3") is stored with every chunk, both in the indexed text and in the metadata. A fixed-size cut can separate "run promote" from the heading that says which system and situation it belongs to; heading-aware chunking prevents this. Code blocks and numbered steps are never cut in the middle.
 - **Q10.45 Lexical retrieval for exact identifiers:** Use BM25, a lexical (exact word match) method. Engineers search for exact strings such as error codes, function names and configuration keys, and embedding-based search can blur such strings with similar ones. The tokenizer must keep identifiers such as ERR_4012 or max_connections whole (or index them both whole and split) so exact searches match.
 - **Q10.46 Importance of rare terms:** BM25 weights each term by inverse document frequency (IDF): a term found in few documents gets a high weight, and a term found in almost all documents (such as "error") gets a low weight. So a rare error identifier that appears in only a few documents ranks those documents high. BM25 also limits the gain from repeating a term many times and adjusts for document length.
+- **Q10.47 Vector embeddings:** Embeddings turn text into vectors by meaning, so a question and a document that use different words with similar meaning end up close together. The question is embedded and compared with the chunk vectors (cosine similarity), and the closest chunks are returned. This fixes vocabulary mismatch, for example "the database answers slowly" against "high query latency". Weaknesses: similar exact identifiers can blur, and it needs an embedding model and a vector index, which is extra infrastructure.
 
 ### Open unknowns / assumptions A (all provisional)
 
@@ -119,6 +121,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | 10A-18 | Q10.35 | Providers return usage in every response, including streamed and failed ones | Assumption | Irfan | Provider docs and test calls |
 | 10A-19 | Q10.28 | An emergency reserve pool exists, and who may approve using it | Unknown | Team (stakeholders) | A2 and stakeholder agreement |
 | 10A-20 | Q10.42 | The documents are text-based with headings (for example Markdown, HTML or wiki pages), not scanned images | Assumption | Irfan | A2 document sources |
+| 10A-21 | Q10.47, Q10.50 | Missing documents because of different wording will be rare enough in V1 for BM25 alone | Assumption | Irfan | Retrieval evaluation results (Q10.51) |
 
 ### Where Claude and ChatGPT disagreed
 _(none yet — only Claude used so far; ChatGPT comparison and team agreement are still open)_
