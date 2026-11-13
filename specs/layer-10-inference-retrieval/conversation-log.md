@@ -65,6 +65,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.60 (Section E) | C | (this session) | See "Decisions E" below | None new | 10.11 |
 | Q10.61 (Section E) | C | (this session) | See "Decisions E" below | TBD: evidence kinds wait on A9 (owner: A9 author) | 10.11 |
 | Q10.62 (Section E) | C | (this session) | See "Decisions E" below | None new | 10.11 |
+| Q10.63 (Section E) | C | (this session) | See "Decisions E" below | None new | 10.11 |
 
 ### Decisions A
 
@@ -139,6 +140,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 - **Q10.60 Compressing context:** Order of steps: drop irrelevant and repeated material; reduce long logs to their key lines (errors, counts, time ranges); summarize old conversation turns. Identifiers, numbers, timestamps and error messages are kept word for word. Evidence that is cited is never compressed. Each compressed part keeps a pointer to the full record. Evaluation checks that compression does not lose important facts.
 - **Q10.61 Prioritizing evidence (mechanism):** First keep what is mandatory: the task, constraints, the current hypothesis and directly cited evidence. Then score the remaining evidence by relevance to the question, source reliability, recency, and whether it supports or contradicts the hypothesis. Fill the token budget from the top, leaving room for the answer. What is left out is listed with pointers to the full records. TBD: the evidence kinds come from A9.
 - **Q10.62 Provenance through summaries:** Every claim in a summary carries the id of the source evidence record (and the span when needed). The summarizer is required to output these ids. A check confirms every claim has at least one valid id, and a summary without them is rejected.
+- **Q10.63 Why summaries do not replace evidence:** A summary loses detail and can contain mistakes or invented statements. It is an interpretation, not the original observation. Engineers and audits need the original records to verify it. If only summaries existed, errors could not be found, and summaries of summaries would pile up errors. So both are kept, and the summary points to the records.
 
 ### Open unknowns / assumptions A (all provisional)
 
