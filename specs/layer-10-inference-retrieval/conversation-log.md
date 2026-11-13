@@ -39,6 +39,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.36 (Section C) | C | (this session) | See "Decisions C" below | None new | 10.8, 10.5 |
 | Q10.40 (Section D) | C | (this session) | See "Decisions D" below | TBD: runbook sources wait on A2 (owner: A2 team) | 10.9 |
 | Q10.41 (Section D) | C | (this session) | See "Decisions D" below | None new | 10.9 |
+| Q10.42 (Section D) | C | (this session) | See "Decisions D" below | See 10A-20 | 10.9 |
 
 ### Decisions A
 
@@ -84,6 +85,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 
 - **Q10.40 Runbooks during investigation (mechanism):** Runbooks are ingested into the same searchable index as other documents (Q10.42). The agent gets a retrieval tool it can call during an investigation with a query, for example an error code or service name. It receives the most relevant runbook sections with their source, version and section path. Runbooks are reference information for the agent, not commands: any action they suggest still goes through the normal tool validation (Q10.16). Incident priority or service name can be stored as metadata to filter results. TBD: which runbook sources exist comes from A2.
 - **Q10.41 Retrieval improving answers:** Without retrieval the model answers only from what it learned in training, which knows nothing about our systems and may be out of date, so it may guess. With retrieval, at the time a question is asked, the platform searches our documents, puts the most relevant passages into the prompt, and the model answers from them. This lets answers use our own current procedures, cite the source passage, and be checked more easily. Retrieval happens when a question is asked, not during ingestion. Ingestion is the earlier preparation step (Q10.42).
+- **Q10.42 Ingestion process:** (1) Collect documents from the agreed sources. (2) Read and clean the text while keeping structure (headings, code blocks). (3) Split into chunks with heading-aware chunking (Q10.43, Q10.44). (4) Attach metadata to each chunk: source, document id, version, heading path, date. (5) Build the search index (BM25 first) as a new index revision, so the previous revision stays usable. (6) Check the result with counts and sample searches. (7) Re-run when documents change, including removing deleted ones. Index revisions, stale documents and deleted documents are covered in Q10.52 to Q10.55.
 
 ### Open unknowns / assumptions A (all provisional)
 
@@ -108,6 +110,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | 10A-17 | Q10.27, Q10.28 | The per-incident and overall cost limits | Unknown | Team | A2 (Q2.16 and Q2.18) |
 | 10A-18 | Q10.35 | Providers return usage in every response, including streamed and failed ones | Assumption | Irfan | Provider docs and test calls |
 | 10A-19 | Q10.28 | An emergency reserve pool exists, and who may approve using it | Unknown | Team (stakeholders) | A2 and stakeholder agreement |
+| 10A-20 | Q10.42 | The documents are text-based with headings (for example Markdown, HTML or wiki pages), not scanned images | Assumption | Irfan | A2 document sources |
 
 ### Where Claude and ChatGPT disagreed
 _(none yet — only Claude used so far; ChatGPT comparison and team agreement are still open)_
