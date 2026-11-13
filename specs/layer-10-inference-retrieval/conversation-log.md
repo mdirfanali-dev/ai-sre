@@ -50,6 +50,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 | Q10.50 (Section D) | C | (this session) | See "Decisions D" below | See 10A-21 | 10.9 |
 | Q10.51 (Section D) | C | (this session) | See "Decisions D" below | See 10A-22 | 10.13 |
 | Q10.52 (Section D) | C | (this session) | See "Decisions D" below | None new | 10.9 |
+| Q10.53 (Section D) | C | (this session) | See "Decisions D" below | None new | 10.9 |
 
 ### Decisions A
 
@@ -106,6 +107,7 @@ Owner: Irfan. Built from: Artifact 2 (Scope and Constraints) and Artifact 9 (Age
 - **Q10.50 Why BM25 first:** Exact technical identifiers are the main need, and BM25 handles them reliably and explainably. It needs no embedding model, no vector database and no extra cost, runs inside the program, and gives the same output for the same input, so it is reproducible. Embeddings are added only if evaluation (Q10.51) shows that vocabulary mismatch causes missed documents.
 - **Q10.51 Measuring retrieval quality:** Build a labeled set of real questions with known correct documents or chunks (ground truth). Measure Recall@10 (is the correct document in the top 10), Precision@10 (how many of the top 10 are relevant) and MRR (mean of 1 divided by the rank of the first correct result). Re-run the same set after every change to chunking or search method and compare. Keep the results together with the index revision.
 - **Q10.52 Immutable index revisions:** Every ingestion run creates a new index revision with its own id, and a revision is never edited. It records the documents, their versions and content hashes, and the chunking and tokenizer settings. Each investigation records the revision it used, so it can be reproduced later. Old revisions are kept for the agreed retention period, or can be rebuilt from the stored document versions.
+- **Q10.53 Preserving source version and text span:** Each citation stores the document id, the document version, the exact text span (start and end position) and a content hash of the cited text. If the document changes later, the cited text can still be shown from the stored version, and the hash proves it was not altered.
 
 ### Open unknowns / assumptions A (all provisional)
 
