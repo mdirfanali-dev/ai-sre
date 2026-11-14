@@ -18,7 +18,7 @@ _Last updated: 2026-11-14_
 | 7 | Data, APIs and Events | Dhanush (from Manish) | Not started — inputs ready (A4, A6) | | | |
 | 8 | Workflows and State Machines | Dhanush | Not started — prep allowed (Sections A, D) | | | Needs A6, A7 |
 | 9 | Agent Architecture | Dhanush | Not started | | | Needs A3, A7, A8 |
-| 10 | Inference and Retrieval | Irfan | Not started | | | Needs A2, A9 |
+| 10 | Inference and Retrieval | Irfan | Draft — all 64 questions answered; 10 items wait on A9 (needs A7, A8); team review and ChatGPT pass (H2) pending | [log](specs/layer-10-inference-retrieval/conversation-log.md) | [A10](specs/layer-10-inference-retrieval/artifact-10-inference-and-retrieval-spec.html) | Follows revised A2 (cloud providers by config, off by default): Claude adapter = Anthropic adapter, Tinker not used. Model choice, GPU sizing and HA design wait for a team session. Retrieval method confirmed: BM25 first |
 | 11 | Safe Remediation | Rinisha | Not started | | | Needs A5, A8, A9 |
 | 12 | Reliability and Evaluation | All, by section (Dhanush merges) | Not started | | | Needs A3, A4, A10, A11 |
 | 13 | Implementation Planning | Team | Not started | | | Needs A1–A12 |
